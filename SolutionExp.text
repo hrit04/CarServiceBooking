@@ -1,0 +1,71 @@
+
+Solutions :
+
+//
+Tables That I have designed :
+
+Customer : {id, name, email_id, contact_number, created_at, updated_at}
+
+ServiceOperator : {id, name, email_id, contact_number, created_at, updated_at}
+
+BookingData : {id, customer_id , operator_id, created_at, updated_at, booking_slot, booking_status,  booking_date}
+
+              Here booking_date is the appointment date
+              Id is the unique booking id
+              customer_id is the userId , who done the booking
+              operator_id is the id of the operator whose car is booked
+              booking_slot is the slot time (it can be 1 to 24)
+              booking_status represents the status of the current booking i,e
+              booking_status : 1 = CREATED
+                               2 = RESCHEDULED
+                               3 = COMPLETED
+                               4 = CANCELED
+
+API that I have designed :
+
+1.  /createBooking POST
+
+   curl :  curl --location 'http://localhost:8082/v1/carsService/createBooking' \
+--header 'Content-Type: application/json' \
+--data '{
+    "booking" : {
+      "customer_id" : 123221760,
+      "operator_id" : 11,
+      "booking_slot" : 5,
+      "booking_status": 1,
+       "booking_date" : "2024-10-08"
+    }
+
+}'
+
+
+2. /cancelBooking PUT
+
+curl :
+
+   curl --location --request PUT 'http://localhost:8082/v1/carsService/cancelBooking?bookingId=2'
+
+
+3.  /rescheduleBooking PUT
+
+  curl :
+
+     curl --location --request PUT 'http://localhost:8082/v1/carsService/rescheduleBooking?bookingId=2' \
+--header 'bookingDate: 2024-01-03'
+
+4. /allAvailableSlotsOfOperator?operator_id=122&date='2024-01-01' GET
+
+   curl :
+
+      curl --location 'http://localhost:8082/v1/carsService/allAvailableSlotsOfOperator?operatorId=11' \
+--header 'Date: 2024-10-08'
+
+
+ 5. /allBookingsOfOperator?operator_id=122&date='2024-01-01' GET
+
+     curl --location 'http://localhost:8082/v1/carsService/allBookingsOfOperator?operatorId=11' \
+--header 'Date: 2024-10-08'
+
+
+
+
